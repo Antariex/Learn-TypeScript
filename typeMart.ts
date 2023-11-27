@@ -9,4 +9,42 @@ Currently, we are producing a few types of products, and we can’t wait to expa
 Create a purchase flow for TypeMart visitors.
 */
 
-import products from './products';
+import products from "./products";
+
+let productName: string = "hoodie";
+let shipping: number;
+let taxPercent: number;
+let taxTotal: number;
+let total: number;
+let shippingAddress: string = "Arenales 2774, Buenos Aires, Argentina";
+
+const product = products.find((product) => product.name === productName);
+
+if (product?.preOrder === true) {
+    console.log("We'll send you a message when your product is on its way.");
+}
+
+if (product?.price && product.price >= 25) {
+    shipping = 0;
+    console.log("We provide free shipping for this product.");
+} else {
+    shipping = 5;
+}
+
+if (shippingAddress.match("New York")) {
+    taxPercent = 0.1;
+} else {
+    taxPercent = 0.05;
+}
+
+taxTotal = product?.price ? product.price * taxPercent : 0;
+total = product?.price ? product.price + taxTotal + shipping : 0;
+
+console.log(`
+Product:  ${product?.name}
+Address:  ${shippingAddress}
+Price:    $${product?.price}
+Tax:      $${taxTotal.toFixed(2)}
+Shipping: $${shipping.toFixed(2)}
+Total:    $${total.toFixed(2)}
+`);
